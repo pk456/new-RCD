@@ -47,7 +47,7 @@ def train(args, local_map):
             # todo：这里需要用参数传递
             if batch_count % args.log_interval == args.log_interval - 1:
                 print(
-                    f'{epoch + 1}/{args.epoch_n} [{batch_count + 1}/{data_loader.get_batch_num()}] loss: {running_loss / args.log_interval}')
+                    f'{epoch + 1}/{args.epoch_n} [{batch_count}/{data_loader.get_batch_num()}] loss: {running_loss / args.log_interval}')
                 running_loss = 0.0
 
         # test and save current model every epoch
