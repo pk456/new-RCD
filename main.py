@@ -44,23 +44,23 @@ def train(args, local_map):
             net.apply_clipper()
 
             running_loss += loss.item()
-            # todo：这里需要用参数传递
+
             if batch_count % args.log_interval == args.log_interval - 1:
                 print(
-                    f'{epoch + 1}/{args.epoch_n} [{batch_count}/{data_loader.get_batch_num()}] loss: {running_loss / args.log_interval}')
+                    f'train--{epoch + 1}/{args.epoch_n} [{batch_count}/{data_loader.get_batch_num()}] loss: {running_loss / args.log_interval}')
                 running_loss = 0.0
 
         # test and save current model every epoch
-        # 判断有无model目录，若没有则创建
         if not os.path.exists(args.model_save_dir):
             os.makedirs(args.model_save_dir)
         save_snapshot(net, f'{args.model_save_dir}/model_epoch_{str(epoch + 1)}.pth')
-        rmse, auc = predict(args, net, epoch)
+
+        predict(args, net, epoch)
 
 
 def predict(args, net, epoch):
     device = torch.device(('cuda:%d' % (args.gpu)) if torch.cuda.is_available() else 'cpu')
-    data_loader = ValTestDataLoader(args.data_name, args.knowledge_n)
+    data_loader = TrainDataLoader(args.data_name, args.knowledge_n, args.batch_size, True)
     print('predicting model...')
     data_loader.reset()
     net.eval()
@@ -83,6 +83,10 @@ def predict(args, net, epoch):
         pred_all += output.tolist()
         label_all += labels.tolist()
 
+        if batch_count % args.log_interval == 0:
+            print(
+                f'val--{epoch + 1}/{args.epoch_n} [{batch_count}/{data_loader.get_batch_num()}] acc: {correct_count / exer_count}')
+
     pred_all = np.array(pred_all)
     label_all = np.array(label_all)
     # compute accuracy
@@ -96,8 +100,6 @@ def predict(args, net, epoch):
         os.makedirs(args.result_save_dir)
     with open(f'{args.result_save_dir}/ncd_model_val.txt', 'a', encoding='utf8') as f:
         f.write('epoch= %d, accuracy= %f, rmse= %f, auc= %f\n' % (epoch + 1, accuracy, rmse, auc))
-
-    return rmse, auc
 
 
 def save_snapshot(model, filename):

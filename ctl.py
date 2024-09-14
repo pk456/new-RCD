@@ -19,7 +19,7 @@ class CommonArgParser(argparse.ArgumentParser):
         self.add_argument('--emb', type=int, default=64)
         self.add_argument('--batch_size', type=int, default=128)
         self.add_argument('--data_name', type=str, default='junyi')
-        self.add_argument('--log_interval', type=int, default=1,
+        self.add_argument('--log_interval', type=int, default=10,
                           help='Output logs every log_interval batches.')
         self.add_argument('--model_save_dir', type=str, default='model',
                           help='The directory for saving the model results of each training round.')

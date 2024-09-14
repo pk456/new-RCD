@@ -1,4 +1,6 @@
 import json
+import random
+
 import torch
 
 
@@ -7,12 +9,16 @@ class TrainDataLoader(object):
     data loader for training
     '''
 
-    def __init__(self, data_name: str, knowledge_num: int, batch_size: int = 256):
+    def __init__(self, data_name: str, knowledge_num: int, batch_size: int = 256, test: bool = False):
         self.batch_size = batch_size
         self.ptr = 0
         self.data = []
+        self.is_test = test
 
-        data_file = f'./data/{data_name}/train_set.json'
+        if test:
+            data_file = f'./data/{data_name}/train_set.json'
+        else:
+            data_file = f'./data/{data_name}/test_set.json'
         with open(data_file, encoding='utf8') as i_f:
             self.data = json.load(i_f)
 
@@ -48,6 +54,9 @@ class TrainDataLoader(object):
 
     def reset(self):
         self.ptr = 0
+        # 如果是训练集，则打乱data的顺序
+        if not self.is_test:
+            random.shuffle(self.data)
 
 
 class ValTestDataLoader(object):
