@@ -1,0 +1,83 @@
+/home/liujiaqi/miniconda3/envs/dpl/lib/python3.9/site-packages/dgl/heterograph.py:92: DGLWarning: Recommend creating graphs by `dgl.graph(data)` instead of `dgl.DGLGraph(data)`.
+  dgl_warning(
+Net(
+  (knowledge_emb): Embedding(835, 64)
+  (exercise_emb): Embedding(835, 64)
+  (student_emb): Embedding(10000, 64)
+  (FusionLayer1): Fusion(
+    (directed_gat): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (undirected_gat): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (e_to_k): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (k_to_e): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (e_to_u): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (u_to_e): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (k_attn_fc1): Linear(in_features=128, out_features=1, bias=True)
+    (k_attn_fc2): Linear(in_features=128, out_features=1, bias=True)
+    (k_attn_fc3): Linear(in_features=128, out_features=1, bias=True)
+    (e_attn_fc1): Linear(in_features=128, out_features=1, bias=True)
+    (e_attn_fc2): Linear(in_features=128, out_features=1, bias=True)
+  )
+  (FusionLayer2): Fusion(
+    (directed_gat): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (undirected_gat): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (e_to_k): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (k_to_e): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (e_to_u): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (u_to_e): GraphLayer(
+      (fc): Linear(in_features=64, out_features=64, bias=False)
+      (attn_fc): Linear(in_features=128, out_features=1, bias=False)
+    )
+    (k_attn_fc1): Linear(in_features=128, out_features=1, bias=True)
+    (k_attn_fc2): Linear(in_features=128, out_features=1, bias=True)
+    (k_attn_fc3): Linear(in_features=128, out_features=1, bias=True)
+    (e_attn_fc1): Linear(in_features=128, out_features=1, bias=True)
+    (e_attn_fc2): Linear(in_features=128, out_features=1, bias=True)
+  )
+  (prednet_full1): Linear(in_features=128, out_features=64, bias=False)
+  (prednet_full2): Linear(in_features=128, out_features=64, bias=False)
+  (prednet_full3): Linear(in_features=64, out_features=1, bias=True)
+)
+training model...
+train--1/20 [9/1090] loss: 0.6227750182151794
+train--1/20 [19/1090] loss: 0.689652144908905
+train--1/20 [29/1090] loss: 0.6882104337215423
+train--1/20 [39/1090] loss: 0.6850175797939301
+train--1/20 [49/1090] loss: 0.683110362291336
+train--1/20 [59/1090] loss: 0.679870891571045
+train--1/20 [69/1090] loss: 0.6783260226249694
+train--1/20 [79/1090] loss: 0.6721444487571716
+train--1/20 [89/1090] loss: 0.6690281808376313
+train--1/20 [99/1090] loss: 0.6641539573669434
