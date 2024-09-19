@@ -61,7 +61,7 @@ def build_interaction_graph(data_name: str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_name', type=str, default='junyi')
+    parser.add_argument('--data_name', type=str, default='c')
     args = parser.parse_args()
 
     build_interaction_graph(args.data_name)
