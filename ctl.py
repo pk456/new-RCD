@@ -4,11 +4,11 @@ import argparse
 class CommonArgParser(argparse.ArgumentParser):
     def __init__(self):
         super(CommonArgParser, self).__init__()
-        self.add_argument('--exer_n', type=int, default=835,
+        self.add_argument('--exer_n', type=int, default=17751,
                           help='The number for exercise.')
-        self.add_argument('--knowledge_n', type=int, default=835,
+        self.add_argument('--knowledge_n', type=int, default=122,
                           help='The number for knowledge concept.')
-        self.add_argument('--student_n', type=int, default=10000,
+        self.add_argument('--student_n', type=int, default=4163,
                           help='The number for student.')
         self.add_argument('--gpu', type=int, default=0,
                           help='The id of gpu, e.g. 0.')
@@ -18,10 +18,10 @@ class CommonArgParser(argparse.ArgumentParser):
                           help='Learning rate')
         self.add_argument('--emb', type=int, default=64)
         self.add_argument('--batch_size', type=int, default=128)
-        self.add_argument('--data_name', type=str, default='junyi')
+        self.add_argument('--data_name', type=str, default='c')
         self.add_argument('--log_interval', type=int, default=10,
                           help='Output logs every log_interval batches.')
-        self.add_argument('--model_save_dir', type=str, default='model',
-                          help='The directory for saving the model results of each training round.')
-        self.add_argument('--result_save_dir', type=str, default='result',
-                          help='The directory for saving the model predict of each training round.')
+        self.add_argument('--model_save_dir', type=str, default='model/c-20',
+                          help='The directory for saving the model1 results of each training round.')
+        self.add_argument('--result_save_dir', type=str, default='result/c-20',
+                          help='The directory for saving the model1 predict of each training round.')

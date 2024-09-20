@@ -13,14 +13,14 @@ class Fusion(nn.Module):
         self.emb = args.emb
 
         # graph structure
-        self.directed_g = local_map['directed_g']
+        # self.directed_g = local_map['directed_g']
         self.undirected_g = local_map['undirected_g']
         self.e_to_k = local_map['e_to_k']
         self.k_to_e = local_map['k_to_e']
         self.e_to_u = local_map['e_to_u']
         self.u_to_e = local_map['u_to_e']
 
-        self.directed_gat = GraphLayer(self.directed_g, self.emb, self.emb)
+        # self.directed_gat = GraphLayer(self.directed_g, self.emb, self.emb)
         self.undirected_gat = GraphLayer(self.undirected_g, self.emb, self.emb)
 
         self.e_to_k = GraphLayer(self.e_to_k, self.emb, self.emb)  # src: e
@@ -37,7 +37,7 @@ class Fusion(nn.Module):
         self.e_attn_fc2 = nn.Linear(2 * self.emb, 1, bias=True)
 
     def forward(self, kn_emb, exer_emb, all_stu_emb):
-        k_directed = self.directed_gat(kn_emb)
+        # k_directed = self.directed_gat(kn_emb)
         k_undirected = self.undirected_gat(kn_emb)
 
         e_k_graph = torch.cat((exer_emb, kn_emb), dim=0)
@@ -50,17 +50,18 @@ class Fusion(nn.Module):
 
         # update concepts
         A = kn_emb
-        B = k_directed
+        # B = k_directed
         C = k_undirected
         D = e_to_k_graph[self.exer_n:]
-        concat_c_1 = torch.cat([A, B], dim=1)
+        # concat_c_1 = torch.cat([A, B], dim=1)
         concat_c_2 = torch.cat([A, C], dim=1)
         concat_c_3 = torch.cat([A, D], dim=1)
-        score1 = self.k_attn_fc1(concat_c_1)
+        # score1 = self.k_attn_fc1(concat_c_1)
         score2 = self.k_attn_fc2(concat_c_2)
         score3 = self.k_attn_fc3(concat_c_3)
-        score = F.softmax(torch.cat([score1, score2, score3], dim=1), dim=1)  # dim = 1, 按行SoftMax, 行和为1
-        kn_emb = A + score[:, 0].unsqueeze(1) * B + score[:, 1].unsqueeze(1) * C + score[:, 2].unsqueeze(1) * D
+        score = F.softmax(torch.cat([score2, score3], dim=1), dim=1)  # dim = 1, 按行SoftMax, 行和为1
+        # kn_emb = A + score[:, 0].unsqueeze(1) * B + score[:, 1].unsqueeze(1) * C + score[:, 2].unsqueeze(1) * D
+        kn_emb = A + score[:, 0].unsqueeze(1) * C + score[:, 1].unsqueeze(1) * D
 
         # updated exercises
         A = exer_emb
