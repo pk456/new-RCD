@@ -13,17 +13,17 @@ def build_local_map(data_file: str, exer_n: int, u_e: bool, save_files: List[str
     target_to_exercise = set()  # u(src) to e(dst)
 
     for line in data:
-        user_id = line['user_id'] - 1
+        user_id = line['user_id']
         if u_e:
-            exer_id = line['exer_id'] - 1
+            exer_id = line['exer_id']
             exercise_to_target.add(str(exer_id) + '\t' + str(user_id + exer_n) + '\n')
             target_to_exercise.add(str(user_id + exer_n) + '\t' + str(exer_id) + '\n')
         else:
             for log in line['logs']:
-                exer_id = log['exer_id'] - 1
+                exer_id = log['exer_id']
                 for k in log['knowledge_code']:
-                    exercise_to_target.add(str(exer_id) + '\t' + str(k - 1 + exer_n) + '\n')
-                    target_to_exercise.add(str(k - 1 + exer_n) + '\t' + str(exer_id) + '\n')
+                    exercise_to_target.add(str(exer_id) + '\t' + str(k + exer_n) + '\n')
+                    target_to_exercise.add(str(k + exer_n) + '\t' + str(exer_id) + '\n')
     print(len(exercise_to_target))
     with open(save_files[0], 'w') as f:
         for item in exercise_to_target:
@@ -61,7 +61,7 @@ def build_interaction_graph(data_name: str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_name', type=str, default='c')
+    parser.add_argument('--data_name', type=str, default='c_filter')
     args = parser.parse_args()
 
     build_interaction_graph(args.data_name)

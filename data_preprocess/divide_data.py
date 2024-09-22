@@ -77,7 +77,7 @@ def divide_data(data_name: str, min_log: int):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_name', type=str, default='c')
+    parser.add_argument('--data_name', type=str, default='c_filter')
     parser.add_argument('--min_log', type=int, default=0)
     args = parser.parse_args()
 
