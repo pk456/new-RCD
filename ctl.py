@@ -4,11 +4,11 @@ import argparse
 class CommonArgParser(argparse.ArgumentParser):
     def __init__(self):
         super(CommonArgParser, self).__init__()
-        self.add_argument('--exer_n', type=int, default=17751,
+        self.add_argument('--exer_n', type=int, default=17746,
                           help='The number for exercise.')
-        self.add_argument('--knowledge_n', type=int, default=122,
+        self.add_argument('--knowledge_n', type=int, default=123,
                           help='The number for knowledge concept.')
-        self.add_argument('--student_n', type=int, default=4163,
+        self.add_argument('--student_n', type=int, default=2493,
                           help='The number for student.')
         self.add_argument('--gpu', type=int, default=0,
                           help='The id of gpu, e.g. 0.')
@@ -18,7 +18,7 @@ class CommonArgParser(argparse.ArgumentParser):
                           help='Learning rate')
         self.add_argument('--emb', type=int, default=64)
         self.add_argument('--batch_size', type=int, default=128)
-        self.add_argument('--data_name', type=str, default='c')
+        self.add_argument('--data_name', type=str, default='ASSIST')
         self.add_argument('--log_interval', type=int, default=10,
                           help='Output logs every log_interval batches.')
         self.add_argument('--model_save_dir', type=str, default='model/c-20',

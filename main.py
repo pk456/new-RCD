@@ -110,7 +110,7 @@ def save_snapshot(model, filename):
 
 def construct_local_map(args):
     local_map = {
-        # 'directed_g': dgl_graph(args.data_name, 'direct', args.knowledge_n),
+        'directed_g': dgl_graph(args.data_name, 'direct', args.knowledge_n),
         'undirected_g': dgl_graph(args.data_name, 'undirect', args.knowledge_n),
         'e_to_k': dgl_graph(args.data_name, 'e_to_k', args.knowledge_n + args.exer_n),
         'k_to_e': dgl_graph(args.data_name, 'k_to_e', args.knowledge_n + args.exer_n),

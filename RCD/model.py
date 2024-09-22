@@ -16,7 +16,7 @@ class Net(nn.Module):
         self.emb = args.emb
 
         self.local_map = {
-            # 'directed_g': local_map['directed_g'].to(self.device),
+            'directed_g': local_map['directed_g'].to(self.device),
             'undirected_g': local_map['undirected_g'].to(self.device),
             'e_to_k': local_map['e_to_k'].to(self.device),
             'k_to_e': local_map['k_to_e'].to(self.device),

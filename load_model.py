@@ -10,7 +10,7 @@ if __name__ == '__main__':
     net = Net(args, construct_local_map(args))
     net = net.to(device)
     net.eval()
-    net.load_state_dict(torch.load(r'./model3/model_epoch_100.pth'))
+    net.load_state_dict(torch.load(r'./model_ASSIST/model_epoch_20.pth'))
     stu = torch.LongTensor([1]).to(device)
     exe = torch.LongTensor([1]).to(device)
     knowledge_emb = [0.] * 835
