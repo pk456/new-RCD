@@ -4,11 +4,11 @@ import argparse
 class CommonArgParser(argparse.ArgumentParser):
     def __init__(self):
         super(CommonArgParser, self).__init__()
-        self.add_argument('--exer_n', type=int, default=17746,
+        self.add_argument('--exer_n', type=int, default=None,
                           help='The number for exercise.')
-        self.add_argument('--knowledge_n', type=int, default=123,
+        self.add_argument('--knowledge_n', type=int, default=None,
                           help='The number for knowledge concept.')
-        self.add_argument('--student_n', type=int, default=2493,
+        self.add_argument('--student_n', type=int, default=None,
                           help='The number for student.')
         self.add_argument('--gpu', type=int, default=0,
                           help='The id of gpu, e.g. 0.')
@@ -21,7 +21,11 @@ class CommonArgParser(argparse.ArgumentParser):
         self.add_argument('--data_name', type=str, default='ASSIST')
         self.add_argument('--log_interval', type=int, default=10,
                           help='Output logs every log_interval batches.')
-        self.add_argument('--model_save_dir', type=str, default='model/c-20',
+        self.add_argument('--model_root_save_dir', type=str, default='model',
                           help='The directory for saving the model1 results of each training round.')
-        self.add_argument('--result_save_dir', type=str, default='result/c-20',
+        self.add_argument('--result_root_save_dir', type=str, default='result',
+                          help='The directory for saving the model1 predict of each training round.')
+        self.add_argument('--model_save_dir', type=str, default=None,
+                          help='The directory for saving the model1 results of each training round.')
+        self.add_argument('--result_save_dir', type=str, default=None,
                           help='The directory for saving the model1 predict of each training round.')

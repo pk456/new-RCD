@@ -21,7 +21,7 @@ def train(args, local_map):
     print(net)
 
     optimizer = optim.Adam(net.parameters(), lr=args.lr)
-    print('training model1...')
+    print('training model...')
 
     loss_function = nn.NLLLoss()
     for epoch in range(args.epoch_n):
@@ -51,9 +51,9 @@ def train(args, local_map):
                 running_loss = 0.0
 
         # test and save current model1 every epoch
-        if not os.path.exists(args.model_save_dir):
-            os.makedirs(args.model_save_dir)
-        save_snapshot(net, f'{args.model_save_dir}/model_epoch_{str(epoch + 1)}.pth')
+        if not os.path.exists(os.path.join(args.model_root_save_dir, args.model_save_dir)):
+            os.makedirs(os.path.join(args.model_root_save_dir, args.model_save_dir))
+        save_snapshot(net, f'{args.model_root_save_dir}/{args.model_save_dir}/model_epoch_{str(epoch + 1)}.pth')
 
         predict(args, net, epoch)
 
@@ -96,9 +96,9 @@ def predict(args, net, epoch):
     # compute AUC
     auc = roc_auc_score(label_all, pred_all)
     print('epoch= %d, accuracy= %f, rmse= %f, auc= %f' % (epoch + 1, accuracy, rmse, auc))
-    if not os.path.exists(args.result_save_dir):
-        os.makedirs(args.result_save_dir)
-    with open(f'{args.result_save_dir}/ncd_model_val.txt', 'a', encoding='utf8') as f:
+    if not os.path.exists(os.path.join(args.result_root_save_dir, args.result_save_dir)):
+        os.makedirs(os.path.join(args.model_root_save_dir, args.model_save_dir))
+    with open(f'{args.result_root_save_dir}/{args.result_save_dir}/ncd_model_val.txt', 'a', encoding='utf8') as f:
         f.write('epoch= %d, accuracy= %f, rmse= %f, auc= %f\n' % (epoch + 1, accuracy, rmse, auc))
 
 
@@ -120,6 +120,27 @@ def construct_local_map(args):
     return local_map
 
 
+# 对args的参数进行调整，主要是对默认值进行修改
+def adjust_args(args):
+    # 保存的目录结构默认为数据集名称
+    if args.model_save_dir is None:
+        args.model_save_dir = args.data_name
+    if args.result_save_dir is None:
+        args.result_save_dir = args.data_name
+    # args.exer_n，args.knowledge_n ，args.student_n要么都为None，要么都不为None
+    if args.exer_n is None and args.knowledge_n is None and args.student_n is None:
+        with open(f'data/{args.data_name}/config.txt') as i_f:
+            i_f.readline()
+            args.student_n, args.exer_n, args.knowledge_n = list(map(eval, i_f.readline().split(',')))
+    if args.exer_n is None:
+        raise ValueError('exer_n is None')
+    if args.knowledge_n is None:
+        raise ValueError('knowledge_n is None')
+    if args.student_n is None:
+        raise ValueError('student_n is None')
+
+
 if __name__ == '__main__':
     args = CommonArgParser().parse_args()
+    adjust_args(args)
     train(args, construct_local_map(args))
