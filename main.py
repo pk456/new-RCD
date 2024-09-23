@@ -21,7 +21,7 @@ def train(args, local_map):
     print(net)
 
     optimizer = optim.Adam(net.parameters(), lr=args.lr)
-    print('training model...')
+    print('training model1...')
 
     loss_function = nn.NLLLoss()
     for epoch in range(args.epoch_n):
@@ -45,12 +45,12 @@ def train(args, local_map):
 
             running_loss += loss.item()
 
-            if batch_count % args.log_interval == args.log_interval - 1:
+            if batch_count % args.log_interval == 0:
                 print(
                     f'train--{epoch + 1}/{args.epoch_n} [{batch_count}/{data_loader.get_batch_num()}] loss: {running_loss / args.log_interval}')
                 running_loss = 0.0
 
-        # test and save current model every epoch
+        # test and save current model1 every epoch
         if not os.path.exists(args.model_save_dir):
             os.makedirs(args.model_save_dir)
         save_snapshot(net, f'{args.model_save_dir}/model_epoch_{str(epoch + 1)}.pth')
@@ -61,7 +61,7 @@ def train(args, local_map):
 def predict(args, net, epoch):
     device = torch.device(('cuda:%d' % (args.gpu)) if torch.cuda.is_available() else 'cpu')
     data_loader = TrainDataLoader(args.data_name, args.knowledge_n, args.batch_size, True)
-    print('predicting model...')
+    print('predicting model1...')
     data_loader.reset()
     net.eval()
 
@@ -110,7 +110,7 @@ def save_snapshot(model, filename):
 
 def construct_local_map(args):
     local_map = {
-        'directed_g': dgl_graph(args.data_name, 'direct', args.knowledge_n),
+        # 'directed_g': dgl_graph(args.data_name, 'direct', args.knowledge_n),
         'undirected_g': dgl_graph(args.data_name, 'undirect', args.knowledge_n),
         'e_to_k': dgl_graph(args.data_name, 'e_to_k', args.knowledge_n + args.exer_n),
         'k_to_e': dgl_graph(args.data_name, 'k_to_e', args.knowledge_n + args.exer_n),
