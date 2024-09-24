@@ -18,7 +18,7 @@ class CommonArgParser(argparse.ArgumentParser):
                           help='Learning rate')
         self.add_argument('--emb', type=int, default=64)
         self.add_argument('--batch_size', type=int, default=128)
-        self.add_argument('--data_name', type=str, default='ASSIST')
+        self.add_argument('--data_name', type=str, default='c')
         self.add_argument('--log_interval', type=int, default=10,
                           help='Output logs every log_interval batches.')
         self.add_argument('--model_root_save_dir', type=str, default='model',
