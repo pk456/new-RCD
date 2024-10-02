@@ -49,9 +49,9 @@ def divide_data(data_name: str, min_log: int):
         stu_test['log_num'] = test_size
         stu_test['logs'] = logs[train_size:]
         # test_set.append(stu_test)
-        for log in stu_train['logs']:
+        for log in stu_test['logs']:
             test_set.append({'user_id': user_id, 'exer_id': log['exer_id'], 'score': log['score'],
-                              'knowledge_code': log['knowledge_code']})
+                             'knowledge_code': log['knowledge_code']})
         # shuffle logs in train_slice together, get train_set
     random.shuffle(train_set)
     random.shuffle(test_set)
