@@ -34,7 +34,7 @@ class TrainDataLoader(object):
             for knowledge_code in log['knowledge_code']:
                 knowledge_emb[knowledge_code] = 1.0
             y = log['score']
-            input_stu_ids.append(log['user_id'])
+            input_stu_ids.append(log['stu_id'])
             input_exer_ids.append(log['exer_id'])
             input_knowedge_embs.append(knowledge_emb)
             ys.append(y)
@@ -74,10 +74,10 @@ class ValTestDataLoader(object):
         if self.is_end():
             return None, None, None, None
         logs = self.data[self.ptr]['logs']
-        user_id = self.data[self.ptr]['user_id']
+        stu_id = self.data[self.ptr]['stu_id']
         input_stu_ids, input_exer_ids, input_knowledge_embs, ys = [], [], [], []
         for log in logs:
-            input_stu_ids.append(user_id)
+            input_stu_ids.append(stu_id)
             input_exer_ids.append(log['exer_id'])
             knowledge_emb = [0.] * self.knowledge_dim
             for knowledge_code in log['knowledge_code']:

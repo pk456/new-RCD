@@ -13,11 +13,11 @@ def build_local_map(data_file: str, exer_n: int, u_e: bool, save_files: List[str
     target_to_exercise = set()  # u(src) to e(dst)
 
     for line in data:
-        user_id = line['user_id']
+        stu_id = line['stu_id']
         if u_e:
             exer_id = line['exer_id']
-            exercise_to_target.add(str(exer_id) + '\t' + str(user_id + exer_n) + '\n')
-            target_to_exercise.add(str(user_id + exer_n) + '\t' + str(exer_id) + '\n')
+            exercise_to_target.add(str(exer_id) + '\t' + str(stu_id + exer_n) + '\n')
+            target_to_exercise.add(str(stu_id + exer_n) + '\t' + str(exer_id) + '\n')
         else:
             for log in line['logs']:
                 exer_id = log['exer_id']
@@ -61,7 +61,7 @@ def build_interaction_graph(data_name: str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_name', type=str, default='c_fitler2')
+    parser.add_argument('--data_name', type=str, default='c_filter2')
     args = parser.parse_args()
 
     build_interaction_graph(args.data_name)

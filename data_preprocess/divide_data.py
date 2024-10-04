@@ -28,9 +28,9 @@ def divide_data(data_name: str, min_log: int):
     # 2. divide dataset into train_set and test_set
     train_set, test_set = [], []
     for stu in stus:
-        user_id = stu['user_id']
-        stu_train = {'user_id': user_id}
-        stu_test = {'user_id': user_id}
+        stu_id = stu['stu_id']
+        stu_train = {'stu_id': stu_id}
+        stu_test = {'stu_id': stu_id}
         train_size = int(stu['log_num'] * 0.8)
         test_size = stu['log_num'] - train_size
         logs = []
@@ -43,18 +43,18 @@ def divide_data(data_name: str, min_log: int):
         stu_train['log_num'] = train_size
         stu_train['logs'] = logs[:train_size]
         for log in stu_train['logs']:
-            train_set.append({'user_id': user_id, 'exer_id': log['exer_id'], 'score': log['score'],
+            train_set.append({'stu_id': stu_id, 'exer_id': log['exer_id'], 'score': log['score'],
                               'knowledge_code': log['knowledge_code']})
 
         stu_test['log_num'] = test_size
         stu_test['logs'] = logs[train_size:]
         # test_set.append(stu_test)
         for log in stu_test['logs']:
-            test_set.append({'user_id': user_id, 'exer_id': log['exer_id'], 'score': log['score'],
+            test_set.append({'stu_id': stu_id, 'exer_id': log['exer_id'], 'score': log['score'],
                              'knowledge_code': log['knowledge_code']})
         # shuffle logs in train_slice together, get train_set
     random.shuffle(train_set)
-    random.shuffle(test_set)
+    # random.shuffle(test_set)
 
     print('Number of logs: {}'.format(logs_num))
     print('Number of Exercises: {}'.format(len(exers)))
@@ -77,7 +77,7 @@ def divide_data(data_name: str, min_log: int):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_name', type=str, default='c')
+    parser.add_argument('--data_name', type=str, default='c_filter2')
     parser.add_argument('--min_log', type=int, default=0)
     args = parser.parse_args()
 
