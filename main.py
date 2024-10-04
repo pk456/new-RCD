@@ -97,7 +97,7 @@ def predict(args, net, epoch):
     auc = roc_auc_score(label_all, pred_all)
     print('epoch= %d, accuracy= %f, rmse= %f, auc= %f' % (epoch + 1, accuracy, rmse, auc))
     if not os.path.exists(os.path.join(args.result_root_save_dir, args.result_save_dir)):
-        os.makedirs(os.path.join(args.model_root_save_dir, args.model_save_dir))
+        os.makedirs(os.path.join(args.result_root_save_dir, args.result_save_dir))
     with open(f'{args.result_root_save_dir}/{args.result_save_dir}/ncd_model_val.txt', 'a', encoding='utf8') as f:
         f.write('epoch= %d, accuracy= %f, rmse= %f, auc= %f\n' % (epoch + 1, accuracy, rmse, auc))
 
