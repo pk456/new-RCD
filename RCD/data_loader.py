@@ -15,7 +15,7 @@ class TrainDataLoader(object):
         self.data = []
         self.is_test = test
 
-        if test:
+        if not test:
             data_file = f'./data/{data_name}/train_set.json'
         else:
             data_file = f'./data/{data_name}/test_set.json'
